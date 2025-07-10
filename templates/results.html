@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block title %}Resultados{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-center">Resultados del Cálculo de Soldadura</h2>
+
+<h4>Material seleccionado:</h4>
+<ul>
+    <li><strong>Nombre:</strong> {{ material.Name }}</li>
+    <li><strong>Densidad:</strong> {{ material.Density }} g/cm³</li>
+    <li><strong>Calor específico:</strong> {{ material.SpecificHeat }} J/g°C</li>
+    <li><strong>Punto de fusión:</strong> {{ material.MeltingPoint }} °C</li>
+    <li><strong>Calor de fusión:</strong> {{ material.FusionHeat }} J/g</li>
+    <li><strong>Temp. crítica:</strong> {{ material.CriticalTemperature }} °C</li>
+</ul>
+
+<h4>Electrodo seleccionado:</h4>
+<ul>
+    <li><strong>Nombre:</strong> {{ electrode.Name }}</li>
+    <li><strong>Amperaje recomendado:</strong> {{ electrode.RecommendedAmperage }}</li>
+    <li><strong>Tipo de conexión:</strong> {{ electrode.ConnectionType }}</li>
+    <li><strong>Posiciones:</strong> {{ electrode.Positions }}</li>
+    <li><strong>Descripción:</strong> {{ electrode.Description }}</li>
+</ul>
+
+<h4>Parámetros ingresados:</h4>
+<ul>
+    <li><strong>Amperaje:</strong> {{ amperage }} A</li>
+    <li><strong>Voltaje:</strong> {{ voltage }} V</li>
+    <li><strong>Eficiencia:</strong> {{ efficiency }}</li>
+    <li><strong>Velocidad de soldeo:</strong> {{ speed }} cm/min</li>
+    <li><strong>Espesor:</strong> {{ thickness }} cm</li>
+    <li><strong>Clasificación de chapa:</strong> {{ tipo_chapa }}</li>
+</ul>
+
+<h4>Resultados del cálculo:</h4>
+<ul>
+    <li><strong>Aporte de calor (Hnet):</strong> {{ hnet }} J/cm</li>
+    <li><strong>Zona afectada por calor (ZAC):</strong> {{ zac }} cm³</li>
+    <li><strong>Velocidad crítica de enfriamiento (VCT):</strong> {{ vct }} °C/s</li>
+    <li><strong>Velocidad de solidificación:</strong> {{ solidificacion }} °C/J</li>
+    <li><strong>Carbono equivalente (CE):</strong> {{ ce }}</li>
+    <li><strong>Carbono equivalente (CET):</strong> {{ cet }}</li>
+    <li><strong>Dureza estimada:</strong> {{ dureza }} HB (estimado)</li>
+    <li><strong>Velocidad de enfriamiento T8/5:</strong> {{ enfriamiento_t85 }} °C/s</li>
+    <li><strong>Energía total de fusión:</strong> {{ energia_fusion }} J/cm³</li>
+</ul>
+
+<div class="card my-4 p-3">
+    <h5 class="text-center">Identificación gráfica de la Zona Afectada por el Calor (ZAC)</h5>
+    <div class="d-flex justify-content-center">
+        {% if img_zac %}
+            <img src="{{ url_for('static', filename=img_zac) }}" alt="Gráfico ZAC" style="max-width: 400px;">
+        {% else %}
+            <span class="text-danger">No se pudo generar el gráfico ZAC.</span>
+        {% endif %}
+    </div>
+    <p class="text-center text-muted mb-0" style="font-size: 0.95em;">
+        La zona sombreada representa el área estimada de la ZAC en el material según los parámetros ingresados.
+    </p>
+</div>
+
+<h4>Temperaturas de precalentamiento estimadas:</h4>
+<ul>
+    <li><strong>AWS:</strong> {{ prec_aws }} °C</li>
+    <li><strong>Seferian:</strong> {{ prec_seferian }} °C</li>
+    <li><strong>IIW:</strong> {{ prec_iiw }} °C</li>
+    <li><strong>Yurioka:</strong> {{ prec_yurioka }} °C</li>
+</ul>
+
+<div class="text-center mt-4">
+    <form method="POST" action="{{ url_for('generate_pdf') }}">
+        <input type="hidden" name="material" value="{{ material.Name }}">
+        <input type="hidden" name="electrode" value="{{ electrode.Name }}">
+        <input type="hidden" name="amperage" value="{{ amperage }}">
+        <input type="hidden" name="voltage" value="{{ voltage }}">
+        <input type="hidden" name="efficiency" value="{{ efficiency }}">
+        <input type="hidden" name="speed" value="{{ speed }}">
+        <input type="hidden" name="thickness" value="{{ thickness }}">
+        <input type="hidden" name="img_zac" value="{{ img_zac }}">
+        <button type="submit" class="btn btn-success mt-3">Generar PDF</button>
+    </form>
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver</a>
+</div>
+{% endblock %}

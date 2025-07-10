@@ -1,0 +1,58 @@
+[
+  {
+    "Name": "E6010",
+    "RecommendedAmperage": "75-125",
+    "ConnectionType": "Corriente continua (DC+)",
+    "Positions": "Todas las posiciones",
+    "Description": "Electrodo celulósico, penetración profunda, soldadura en campo."
+  },
+  {
+    "Name": "E6011",
+    "RecommendedAmperage": "75-125",
+    "ConnectionType": "Corriente alterna (AC) o continua (DC+)",
+    "Positions": "Todas las posiciones",
+    "Description": "Electrodo celulósico, buena penetración, uso en condiciones adversas."
+  },
+  {
+    "Name": "E6013",
+    "RecommendedAmperage": "90-140",
+    "ConnectionType": "AC o DC",
+    "Positions": "Todas las posiciones",
+    "Description": "Electrodo rutílico, poca penetración, soldaduras limpias."
+  },
+  {
+    "Name": "E7018",
+    "RecommendedAmperage": "100-180",
+    "ConnectionType": "AC o DC+",
+    "Positions": "Todas las posiciones",
+    "Description": "Electrodo básico, alta resistencia mecánica, requiere almacenamiento seco."
+  },
+  {
+    "Name": "E7024",
+    "RecommendedAmperage": "130-180",
+    "ConnectionType": "AC o DC",
+    "Positions": "Horizontal",
+    "Description": "Electrodo de alta velocidad para cordones largos."
+  },
+  {
+    "Name": "E308L",
+    "RecommendedAmperage": "80-130",
+    "ConnectionType": "AC o DC",
+    "Positions": "Todas las posiciones",
+    "Description": "Electrodo inoxidable, para soldadura de aceros inoxidables 304/308."
+  },
+  {
+    "Name": "E309L",
+    "RecommendedAmperage": "90-150",
+    "ConnectionType": "AC o DC",
+    "Positions": "Todas las posiciones",
+    "Description": "Electrodo inoxidable para uniones disímiles acero-carbono e inoxidable."
+  },
+  {
+    "Name": "E410",
+    "RecommendedAmperage": "80-130",
+    "ConnectionType": "DC",
+    "Positions": "Horizontal",
+    "Description": "Electrodo para aceros martensíticos resistentes a la abrasión."
+  }
+]

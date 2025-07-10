@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe de Soldadura</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1, h2, h3 { color: #222; text-align: center; }
+        .section { margin-bottom: 26px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 9px; text-align: left; font-size: 1em; }
+        th { background-color: #f6f6f6; }
+        .etiqueta { display: inline-block; background: #d1e7dd; color: #0a3622; padding: 2px 10px; border-radius: 12px; font-size: 0.97em; margin-left: 10px;}
+        .graficobox { background: #f7faff; border: 1px solid #b6c5d6; padding: 12px; margin-top: 8px; margin-bottom: 24px; border-radius: 7px;}
+        .subtle { color: #888; font-size: 0.97em; margin-top: 3px;}
+        .text-center { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Informe de Cálculo de Soldadura SMAW</h1>
+
+    <div class="section">
+        <h2>Material Seleccionado</h2>
+        <table>
+            <tr><th>Nombre</th><td>{{ material.Name }}</td></tr>
+            <tr><th>Densidad</th><td>{{ material.Density }} g/cm³</td></tr>
+            <tr><th>Calor específico</th><td>{{ material.SpecificHeat }} J/g°C</td></tr>
+            <tr><th>Punto de fusión</th><td>{{ material.MeltingPoint }} °C</td></tr>
+            <tr><th>Calor de fusión</th><td>{{ material.FusionHeat }} J/g</td></tr>
+            <tr><th>Temp. crítica</th><td>{{ material.CriticalTemperature }} °C</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Electrodo Seleccionado</h2>
+        <table>
+            <tr><th>Nombre</th><td>{{ electrode.Name }}</td></tr>
+            <tr><th>Amperaje recomendado</th><td>{{ electrode.RecommendedAmperage }}</td></tr>
+            <tr><th>Tipo de conexión</th><td>{{ electrode.ConnectionType }}</td></tr>
+            <tr><th>Posiciones</th><td>{{ electrode.Positions }}</td></tr>
+            <tr><th>Descripción</th><td>{{ electrode.Description }}</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Parámetros Ingresados</h2>
+        <table>
+            <tr><th>Amperaje</th><td>{{ amperage }} A</td></tr>
+            <tr><th>Voltaje</th><td>{{ voltage }} V</td></tr>
+            <tr><th>Eficiencia</th><td>{{ efficiency }}</td></tr>
+            <tr><th>Velocidad de soldeo</th><td>{{ speed }} cm/min</td></tr>
+            <tr><th>Espesor</th><td>{{ thickness }} cm <span class="etiqueta">{{ tipo_chapa }}</span></td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Resultados del Cálculo</h2>
+        <table>
+            <tr><th>Aporte de calor (Hnet)</th><td>{{ hnet }} J/cm</td></tr>
+            <tr><th>Zona afectada por calor (ZAC)</th><td>{{ zac }} cm³</td></tr>
+            <tr><th>Velocidad crítica de enfriamiento (VCT)</th><td>{{ vct }} °C/s</td></tr>
+            <tr><th>Velocidad de solidificación</th><td>{{ solidificacion }} °C/J</td></tr>
+            <tr><th>Carbono equivalente (CE - AWS)</th><td>{{ ce }}</td></tr>
+            <tr><th>Carbono equivalente (CET)</th><td>{{ cet }}</td></tr>
+            <tr><th>Dureza estimada</th><td>{{ dureza }} HB</td></tr>
+            <tr><th>Velocidad de enfriamiento T8/5</th><td>{{ enfriamiento_t85 }} °C/s</td></tr>
+            <tr><th>Energía total de fusión</th><td>{{ energia_fusion }} J/cm³</td></tr>
+        </table>
+    </div>
+
+    <div class="section graficobox">
+        <h3 class="mb-2">Zona Afectada por el Calor (ZAC) - Visualización</h3>
+        {% if img_zac %}
+            <img src="{{ url_for('static', filename=img_zac) }}" alt="Gráfico ZAC" style="max-width:320px;display:block;margin:auto;">
+        {% else %}
+            <div class="text-center subtle">No se generó imagen del gráfico.</div>
+        {% endif %}
+        <div class="subtle text-center">*La zona sombreada representa la ZAC aproximada según los parámetros ingresados.</div>
+    </div>
+
+    <div class="section">
+        <h2>Temperaturas de Precalentamiento</h2>
+        <table>
+            <tr><th>AWS</th><td>{{ prec_aws }} °C</td></tr>
+            <tr><th>Seferian</th><td>{{ prec_seferian }} °C</td></tr>
+            <tr><th>IIW</th><td>{{ prec_iiw }} °C</td></tr>
+            <tr><th>Yurioka</th><td>{{ prec_yurioka }} °C</td></tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">Calculadora de Soldadura SMAW</h1>
+
+<form method="POST" action="{{ url_for('results') }}" class="row g-3">
+
+    <!-- Selección de Material -->
+    <div class="col-md-6">
+        <label for="material" class="form-label">Selecciona el Material Base:</label>
+        <select name="material" id="material" class="form-select" required>
+            <option value="">-- Selecciona --</option>
+            {% for material in materials %}
+            <option value="{{ material.Name }}">{{ material.Name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Selección de Electrodo -->
+    <div class="col-md-6">
+        <label for="electrode" class="form-label">Selecciona el Electrodo:</label>
+        <select name="electrode" id="electrode" class="form-select" required>
+            <option value="">-- Selecciona --</option>
+            {% for electrode in electrodes %}
+            <option value="{{ electrode.Name }}">{{ electrode.Name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Parámetros de soldadura -->
+    <div class="col-md-3">
+        <label for="amperage" class="form-label">Amperaje (A):</label>
+        <input type="number" step="0.1" min="0" name="amperage" id="amperage" class="form-control" required>
+    </div>
+
+    <div class="col-md-3">
+        <label for="voltage" class="form-label">Voltaje (V):</label>
+        <input type="number" step="0.1" min="0" name="voltage" id="voltage" class="form-control" required>
+    </div>
+
+    <div class="col-md-3">
+        <label for="efficiency" class="form-label">Eficiencia (η) [0-1]:</label>
+        <input type="number" step="0.01" min="0" max="1" name="efficiency" id="efficiency" class="form-control" required>
+    </div>
+
+    <div class="col-md-3">
+        <label for="speed" class="form-label">Velocidad de soldeo (cm/min):</label>
+        <input type="number" step="0.1" min="0.1" name="speed" id="speed" class="form-control" required>
+    </div>
+
+    <div class="col-md-3">
+        <label for="thickness" class="form-label">Espesor (cm):</label>
+        <input type="number" step="0.1" min="0.1" name="thickness" id="thickness" class="form-control" required>
+    </div>
+
+    <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary mt-3">Calcular</button>
+    </div>
+
+    <p class="text-muted text-center mt-2">* Ingresa los valores correctamente según las unidades indicadas.</p>
+
+</form>
+
+{% endblock %}
