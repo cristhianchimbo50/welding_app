@@ -7,7 +7,7 @@
     <div class="card shadow-lg mx-auto" style="max-width: 900px;">
         <div class="card-body">
             <h2 class="mb-3 text-center fw-bold text-success">Resultados del Cálculo de Soldadura</h2>
-            
+
             <div class="row g-3">
                 <!-- Material y Electrodo seleccionados -->
                 <div class="col-md-6">
@@ -89,7 +89,8 @@
                         <div class="card-header text-center">Curvas de Precalentamiento</div>
                         <div class="card-body text-center">
                             {% if img_precal %}
-                            <img src="{{ url_for('static', filename=img_precal) }}" alt="Gráfico Precalentamiento" class="img-fluid rounded shadow-sm">
+                            <img src="{{ url_for('static', filename=img_precal) }}" alt="Gráfico Precalentamiento"
+                                class="img-fluid rounded shadow-sm">
                             {% else %}
                             <span class="text-danger">No se pudo generar el gráfico.</span>
                             {% endif %}
@@ -101,7 +102,8 @@
                         <div class="card-header text-center">Curva de Enfriamiento</div>
                         <div class="card-body text-center">
                             {% if img_enfriamiento %}
-                            <img src="{{ url_for('static', filename=img_enfriamiento) }}" alt="Curva Enfriamiento" class="img-fluid rounded shadow-sm">
+                            <img src="{{ url_for('static', filename=img_enfriamiento) }}" alt="Curva Enfriamiento"
+                                class="img-fluid rounded shadow-sm">
                             {% else %}
                             <span class="text-danger">No se pudo generar la curva.</span>
                             {% endif %}
@@ -113,7 +115,8 @@
                         <div class="card-header text-center">Diagrama de Soldabilidad</div>
                         <div class="card-body text-center">
                             {% if img_soldabilidad %}
-                            <img src="{{ url_for('static', filename=img_soldabilidad) }}" alt="Diagrama de Soldabilidad" class="img-fluid rounded shadow-sm">
+                            <img src="{{ url_for('static', filename=img_soldabilidad) }}" alt="Diagrama de Soldabilidad"
+                                class="img-fluid rounded shadow-sm">
                             {% else %}
                             <span class="text-danger">No se pudo generar el diagrama.</span>
                             {% endif %}
@@ -163,21 +166,39 @@
 
 <!-- MODAL PDF -->
 <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" style="max-width: 1000px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="pdfModalLabel">Informe PDF</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body" style="height: 80vh; padding: 0;">
-        <iframe id="pdfIframe" style="width:100%; height:100%; border:none;"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
+    <div class="modal-dialog modal-xl" style="max-width: 1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">Informe PDF</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" style="height: 80vh; padding: 0;">
+                <iframe id="pdfIframe" style="width:100%; height:100%; border:none;"></iframe>
+            </div>
+            <div class="modal-footer flex-column" style="gap: 12px;">
+                <!-- Botón para descargar el PDF directamente -->
+                <form id="pdfDownloadForm" method="POST" action="{{ url_for('generate_pdf') }}">
+                    <input type="hidden" name="material" value="{{ material.Name }}">
+                    <input type="hidden" name="electrode" value="{{ electrode.Name }}">
+                    <input type="hidden" name="amperage" value="{{ amperage }}">
+                    <input type="hidden" name="voltage" value="{{ voltage }}">
+                    <input type="hidden" name="efficiency" value="{{ efficiency }}">
+                    <input type="hidden" name="speed" value="{{ speed }}">
+                    <input type="hidden" name="thickness" value="{{ thickness }}">
+                    <input type="hidden" name="img_zac" value="{{ img_zac }}">
+                    <input type="hidden" name="img_precal" value="{{ img_precal }}">
+                    <input type="hidden" name="img_enfriamiento" value="{{ img_enfriamiento }}">
+                    <input type="hidden" name="img_soldabilidad" value="{{ img_soldabilidad }}">
+                    <button type="submit" class="btn btn-success w-100">
+                        Descargar PDF
+                    </button>
+                </form>
+                <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
 
 <!-- Incluye tu JS personalizado -->
 <script src="{{ url_for('static', filename='js/pdf_modal.js') }}"></script>
