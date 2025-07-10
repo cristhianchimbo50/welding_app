@@ -1,114 +1,184 @@
 {% extends 'layout.html' %}
 
-{% block title %}Resultados{% endblock %}
+{% block title %}Resultados | Calculadora de Soldadura SMAW{% endblock %}
 
 {% block content %}
-<h2 class="mb-4 text-center">Resultados del Cálculo de Soldadura</h2>
+<div class="container my-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 900px;">
+        <div class="card-body">
+            <h2 class="mb-3 text-center fw-bold text-success">Resultados del Cálculo de Soldadura</h2>
+            
+            <div class="row g-3">
+                <!-- Material y Electrodo seleccionados -->
+                <div class="col-md-6">
+                    <div class="card border-0 bg-light">
+                        <div class="card-header fw-bold bg-transparent">Material Seleccionado</div>
+                        <div class="card-body p-2">
+                            <ul class="list-unstyled mb-0">
+                                <li><b>Nombre:</b> {{ material.Name }}</li>
+                                <li><b>Densidad:</b> {{ material.Density }} g/cm³</li>
+                                <li><b>Calor específico:</b> {{ material.SpecificHeat }} J/g°C</li>
+                                <li><b>Punto de fusión:</b> {{ material.MeltingPoint }} °C</li>
+                                <li><b>Calor de fusión:</b> {{ material.FusionHeat }} J/g</li>
+                                <li><b>Temp. crítica:</b> {{ material.CriticalTemperature }} °C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 bg-light">
+                        <div class="card-header fw-bold bg-transparent">Electrodo Seleccionado</div>
+                        <div class="card-body p-2">
+                            <ul class="list-unstyled mb-0">
+                                <li><b>Nombre:</b> {{ electrode.Name }}</li>
+                                <li><b>Amperaje recomendado:</b> {{ electrode.RecommendedAmperage }}</li>
+                                <li><b>Tipo de conexión:</b> {{ electrode.ConnectionType }}</li>
+                                <li><b>Posiciones:</b> {{ electrode.Positions }}</li>
+                                <li><b>Descripción:</b> {{ electrode.Description }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<h4>Material seleccionado:</h4>
-<ul>
-    <li><strong>Nombre:</strong> {{ material.Name }}</li>
-    <li><strong>Densidad:</strong> {{ material.Density }} g/cm³</li>
-    <li><strong>Calor específico:</strong> {{ material.SpecificHeat }} J/g°C</li>
-    <li><strong>Punto de fusión:</strong> {{ material.MeltingPoint }} °C</li>
-    <li><strong>Calor de fusión:</strong> {{ material.FusionHeat }} J/g</li>
-    <li><strong>Temp. crítica:</strong> {{ material.CriticalTemperature }} °C</li>
-</ul>
+            <!-- Parámetros ingresados -->
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card border-0">
+                        <div class="card-header fw-bold bg-light">Parámetros Ingresados</div>
+                        <div class="card-body p-2">
+                            <ul class="row list-unstyled mb-0">
+                                <li class="col-md-4"><b>Amperaje:</b> {{ amperage }} A</li>
+                                <li class="col-md-4"><b>Voltaje:</b> {{ voltage }} V</li>
+                                <li class="col-md-4"><b>Eficiencia:</b> {{ efficiency }}</li>
+                                <li class="col-md-4"><b>Velocidad soldeo:</b> {{ speed }} cm/min</li>
+                                <li class="col-md-4"><b>Espesor:</b> {{ thickness }} cm</li>
+                                <li class="col-md-4"><b>Tipo de chapa:</b> {{ tipo_chapa }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<h4>Electrodo seleccionado:</h4>
-<ul>
-    <li><strong>Nombre:</strong> {{ electrode.Name }}</li>
-    <li><strong>Amperaje recomendado:</strong> {{ electrode.RecommendedAmperage }}</li>
-    <li><strong>Tipo de conexión:</strong> {{ electrode.ConnectionType }}</li>
-    <li><strong>Posiciones:</strong> {{ electrode.Positions }}</li>
-    <li><strong>Descripción:</strong> {{ electrode.Description }}</li>
-</ul>
+            <!-- Resultados del cálculo -->
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card border-0">
+                        <div class="card-header fw-bold bg-light">Resultados del Cálculo</div>
+                        <div class="card-body p-2">
+                            <ul class="row list-unstyled mb-0">
+                                <li class="col-md-6"><b>Aporte de calor (Hnet):</b> {{ hnet }} J/cm</li>
+                                <li class="col-md-6"><b>ZAC:</b> {{ zac }} cm³</li>
+                                <li class="col-md-6"><b>VCT:</b> {{ vct }} °C/s</li>
+                                <li class="col-md-6"><b>Vel. solidificación:</b> {{ solidificacion }} °C/J</li>
+                                <li class="col-md-6"><b>Carbono equivalente (CE):</b> {{ ce }}</li>
+                                <li class="col-md-6"><b>CET:</b> {{ cet }}</li>
+                                <li class="col-md-6"><b>Dureza estimada:</b> {{ dureza }} HB</li>
+                                <li class="col-md-6"><b>Vel. enfriamiento T8/5:</b> {{ enfriamiento_t85 }} °C/s</li>
+                                <li class="col-md-6"><b>Energía de fusión:</b> {{ energia_fusion }} J/cm³</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<h4>Parámetros ingresados:</h4>
-<ul>
-    <li><strong>Amperaje:</strong> {{ amperage }} A</li>
-    <li><strong>Voltaje:</strong> {{ voltage }} V</li>
-    <li><strong>Eficiencia:</strong> {{ efficiency }}</li>
-    <li><strong>Velocidad de soldeo:</strong> {{ speed }} cm/min</li>
-    <li><strong>Espesor:</strong> {{ thickness }} cm</li>
-    <li><strong>Clasificación de chapa:</strong> {{ tipo_chapa }}</li>
-</ul>
+            <!-- Gráficos -->
+            <div class="row mt-5 g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-header text-center">Curvas de Precalentamiento</div>
+                        <div class="card-body text-center">
+                            {% if img_precal %}
+                            <img src="{{ url_for('static', filename=img_precal) }}" alt="Gráfico Precalentamiento" class="img-fluid rounded shadow-sm">
+                            {% else %}
+                            <span class="text-danger">No se pudo generar el gráfico.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-header text-center">Curva de Enfriamiento</div>
+                        <div class="card-body text-center">
+                            {% if img_enfriamiento %}
+                            <img src="{{ url_for('static', filename=img_enfriamiento) }}" alt="Curva Enfriamiento" class="img-fluid rounded shadow-sm">
+                            {% else %}
+                            <span class="text-danger">No se pudo generar la curva.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-header text-center">Diagrama de Soldabilidad</div>
+                        <div class="card-body text-center">
+                            {% if img_soldabilidad %}
+                            <img src="{{ url_for('static', filename=img_soldabilidad) }}" alt="Diagrama de Soldabilidad" class="img-fluid rounded shadow-sm">
+                            {% else %}
+                            <span class="text-danger">No se pudo generar el diagrama.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<h4>Resultados del cálculo:</h4>
-<ul>
-    <li><strong>Aporte de calor (Hnet):</strong> {{ hnet }} J/cm</li>
-    <li><strong>Zona afectada por calor (ZAC):</strong> {{ zac }} cm³</li>
-    <li><strong>Velocidad crítica de enfriamiento (VCT):</strong> {{ vct }} °C/s</li>
-    <li><strong>Velocidad de solidificación:</strong> {{ solidificacion }} °C/J</li>
-    <li><strong>Carbono equivalente (CE):</strong> {{ ce }}</li>
-    <li><strong>Carbono equivalente (CET):</strong> {{ cet }}</li>
-    <li><strong>Dureza estimada:</strong> {{ dureza }} HB (estimado)</li>
-    <li><strong>Velocidad de enfriamiento T8/5:</strong> {{ enfriamiento_t85 }} °C/s</li>
-    <li><strong>Energía total de fusión:</strong> {{ energia_fusion }} J/cm³</li>
-</ul>
+            <!-- Temperaturas de precalentamiento -->
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="card border-0 bg-light">
+                        <div class="card-header fw-bold">Temperaturas de Precalentamiento</div>
+                        <div class="card-body p-2">
+                            <ul class="list-unstyled mb-0 row">
+                                <li class="col-md-3"><b>AWS:</b> {{ prec_aws }} °C</li>
+                                <li class="col-md-3"><b>Seferian:</b> {{ prec_seferian }} °C</li>
+                                <li class="col-md-3"><b>IIW:</b> {{ prec_iiw }} °C</li>
+                                <li class="col-md-3"><b>Yurioka:</b> {{ prec_yurioka }} °C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-
-<div class="card my-4 p-3">
-    <h5 class="text-center">Curvas de Temperatura de Precalentamiento</h5>
-    <div class="d-flex justify-content-center">
-        {% if img_precal %}
-        <img src="{{ url_for('static', filename=img_precal) }}" alt="Gráfico Precalentamiento"
-            style="max-width: 400px;">
-        {% else %}
-        <span class="text-danger">No se pudo generar el gráfico de precalentamiento.</span>
-        {% endif %}
+            <!-- Botones -->
+            <div class="text-center mt-4">
+                <form id="pdfForm" method="POST" action="{{ url_for('generate_pdf') }}" class="d-inline">
+                    <input type="hidden" name="material" value="{{ material.Name }}">
+                    <input type="hidden" name="electrode" value="{{ electrode.Name }}">
+                    <input type="hidden" name="amperage" value="{{ amperage }}">
+                    <input type="hidden" name="voltage" value="{{ voltage }}">
+                    <input type="hidden" name="efficiency" value="{{ efficiency }}">
+                    <input type="hidden" name="speed" value="{{ speed }}">
+                    <input type="hidden" name="thickness" value="{{ thickness }}">
+                    <input type="hidden" name="img_zac" value="{{ img_zac }}">
+                    <input type="hidden" name="img_precal" value="{{ img_precal }}">
+                    <input type="hidden" name="img_enfriamiento" value="{{ img_enfriamiento }}">
+                    <input type="hidden" name="img_soldabilidad" value="{{ img_soldabilidad }}">
+                    <button type="submit" class="btn btn-success btn-lg px-4" id="openPdfBtn">Generar PDF</button>
+                </form>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary btn-lg ms-2 px-4">Volver</a>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="card my-4 p-3">
-    <h5 class="text-center">Curva de Enfriamiento</h5>
-    <div class="d-flex justify-content-center">
-        {% if img_enfriamiento %}
-        <img src="{{ url_for('static', filename=img_enfriamiento) }}" alt="Curva Enfriamiento"
-            style="max-width: 400px;">
-        {% else %}
-        <span class="text-danger">No se pudo generar la curva de enfriamiento.</span>
-        {% endif %}
+<!-- MODAL PDF -->
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="max-width: 1000px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pdfModalLabel">Informe PDF</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" style="height: 80vh; padding: 0;">
+        <iframe id="pdfIframe" style="width:100%; height:100%; border:none;"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="card my-4 p-3">
-    <h5 class="text-center">Diagrama de Soldabilidad (CE vs %C)</h5>
-    <div class="d-flex justify-content-center">
-        {% if img_soldabilidad %}
-        <img src="{{ url_for('static', filename=img_soldabilidad) }}" alt="Diagrama de Soldabilidad"
-            style="max-width: 400px;">
-        {% else %}
-        <span class="text-danger">No se pudo generar el diagrama de soldabilidad.</span>
-        {% endif %}
-    </div>
-</div>
-
-<h4>Temperaturas de precalentamiento estimadas:</h4>
-<ul>
-    <li><strong>AWS:</strong> {{ prec_aws }} °C</li>
-    <li><strong>Seferian:</strong> {{ prec_seferian }} °C</li>
-    <li><strong>IIW:</strong> {{ prec_iiw }} °C</li>
-    <li><strong>Yurioka:</strong> {{ prec_yurioka }} °C</li>
-</ul>
-
-<div class="text-center mt-4">
-    <form method="POST" action="{{ url_for('generate_pdf') }}">
-        <input type="hidden" name="material" value="{{ material.Name }}">
-        <input type="hidden" name="electrode" value="{{ electrode.Name }}">
-        <input type="hidden" name="amperage" value="{{ amperage }}">
-        <input type="hidden" name="voltage" value="{{ voltage }}">
-        <input type="hidden" name="efficiency" value="{{ efficiency }}">
-        <input type="hidden" name="speed" value="{{ speed }}">
-        <input type="hidden" name="thickness" value="{{ thickness }}">
-        <input type="hidden" name="img_zac" value="{{ img_zac }}">
-        <input type="hidden" name="img_precal" value="{{ img_precal }}">
-        <input type="hidden" name="img_enfriamiento" value="{{ img_enfriamiento }}">
-        <input type="hidden" name="img_soldabilidad" value="{{ img_soldabilidad }}">
-        <button type="submit" class="btn btn-success mt-3">Generar PDF</button>
-        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver</a>
-    </form>
-
-    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver</a>
-</div>
+<!-- Incluye tu JS personalizado -->
+<script src="{{ url_for('static', filename='js/pdf_modal.js') }}"></script>
 {% endblock %}

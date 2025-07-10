@@ -2,61 +2,227 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Informe de Soldadura</title>
+    <title>Informe de Soldadura SMAW</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1, h2, h3 { color: #222; text-align: center; }
-        .section { margin-bottom: 26px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ccc; padding: 9px; text-align: left; font-size: 1em; }
-        th { background-color: #f6f6f6; }
-        .etiqueta { display: inline-block; background: #d1e7dd; color: #0a3622; padding: 2px 10px; border-radius: 12px; font-size: 0.97em; margin-left: 10px;}
-        .graficobox { background: #f7faff; border: 1px solid #b6c5d6; padding: 12px; margin-top: 8px; margin-bottom: 24px; border-radius: 7px;}
-        .subtle { color: #888; font-size: 0.97em; margin-top: 3px;}
-        .text-center { text-align: center; }
-        .mb-2 { margin-bottom: 0.7em; }
-        .imggraph { max-width: 340px; display:block; margin:auto;}
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background: #f6f7fb;
+        }
+        .container {
+            max-width: 950px;
+            margin: 40px auto 30px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 0 15px #b9c0cf;
+            padding: 32px 38px 36px 38px;
+        }
+        .portada {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 44px;
+            margin-bottom: 14px;
+        }
+        .logos img {
+            height: 75px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px #b7bcc1;
+            padding: 6px;
+        }
+        .app-title {
+            font-size: 2.6em;
+            color: #044e41;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .integrantes {
+            font-size: 1.15em;
+            color: #223366;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .integrantes strong {
+            font-weight: bold;
+            color: #26788a;
+        }
+        .proyecto {
+            margin-top: 10px;
+            margin-bottom: 6px;
+            font-size: 1.18em;
+            color: #2b566a;
+        }
+        .fecha {
+            font-size: 1em;
+            color: #999;
+        }
+        h2 {
+            color: #16467c;
+            margin-top: 35px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        /* Cards Modernas */
+        .cards-entrada {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .card-entrada {
+            flex: 1 1 260px;
+            min-width: 250px;
+            background: #f4f7fc;
+            border-radius: 13px;
+            box-shadow: 0 1px 6px #dde3ef;
+            padding: 18px 15px 12px 20px;
+            border: 1px solid #e0e6f1;
+        }
+        .card-entrada h3 {
+            font-size: 1.11em;
+            font-weight: bold;
+            color: #3a657c;
+            margin-bottom: 9px;
+            margin-top: 0;
+        }
+        .card-entrada ul {
+            margin: 0 0 3px 0;
+            padding: 0;
+            list-style: none;
+            font-size: 1.07em;
+        }
+        .card-entrada ul li {
+            margin-bottom: 4px;
+        }
+        /* Tabla Resultados */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 18px;
+        }
+        th, td {
+            border: 1px solid #c2c7ce;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 1.05em;
+        }
+        th {
+            background: #e7f3ff;
+            color: #11445a;
+            font-weight: 600;
+            width: 38%;
+        }
+        /* Gráficos */
+        .graficos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+            margin: 40px 0 18px 0;
+        }
+        .grafico-box {
+            flex: 1 1 300px;
+            min-width: 260px;
+            max-width: 33%;
+            text-align: center;
+            background: #f3f7fd;
+            border-radius: 12px;
+            padding: 18px 8px 12px 8px;
+            margin-bottom: 12px;
+            border: 1px solid #c8deeb;
+        }
+        .grafico-box img {
+            max-width: 310px;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 7px;
+            box-shadow: 0 1px 7px #b5bfd1;
+        }
+        .grafico-label {
+            font-weight: 500;
+            font-size: 1.06em;
+            color: #27457a;
+            margin-bottom: 7px;
+        }
+        .footer {
+            margin-top: 32px;
+            text-align: center;
+            color: #97a3a9;
+            font-size: 1.09em;
+        }
+        @media (max-width: 900px) {
+            .container { padding: 13px 1vw 18px 1vw;}
+            .cards-entrada, .graficos { flex-direction: column; gap: 13px; }
+            .grafico-box { max-width: 100%; }
+            .logos { gap: 14px;}
+            .logos img { height: 48px;}
+        }
     </style>
 </head>
 <body>
-    <h1>Informe de Cálculo de Soldadura SMAW</h1>
+    <div class="container">
 
-    <div class="section">
-        <h2>Material Seleccionado</h2>
-        <table>
-            <tr><th>Nombre</th><td>{{ material.Name }}</td></tr>
-            <tr><th>Densidad</th><td>{{ material.Density }} g/cm³</td></tr>
-            <tr><th>Calor específico</th><td>{{ material.SpecificHeat }} J/g°C</td></tr>
-            <tr><th>Punto de fusión</th><td>{{ material.MeltingPoint }} °C</td></tr>
-            <tr><th>Calor de fusión</th><td>{{ material.FusionHeat }} J/g</td></tr>
-            <tr><th>Temp. crítica</th><td>{{ material.CriticalTemperature }} °C</td></tr>
-        </table>
-    </div>
+        <!-- Portada -->
+        <div class="portada">
+            <div class="logos">
+                <img src="{{ logo_espoch }}" alt="Logo ESPOCH">
+                <img src="{{ logo_fac_mecanica }}" alt="Logo Facultad Mecánica">
+                <img src="{{ logo_carr_mecanica }}" alt="Logo Carrera Mecánica">
+            </div>
+            <div class="app-title">Informe de Cálculo de Soldadura SMAW</div>
+            <div class="proyecto">Proyecto Final - Ingeniería</div>
+            <div class="integrantes">
+                <strong>Integrantes:</strong><br>
+                Sammy Narváez (7944) <br>
+                Rómulo López (7562) <br>
+                Luis Cruz (7898)
+            </div>
+            <div class="fecha">Fecha: {{ fecha|default('2025-07-10') }}</div>
+        </div>
 
-    <div class="section">
-        <h2>Electrodo Seleccionado</h2>
-        <table>
-            <tr><th>Nombre</th><td>{{ electrode.Name }}</td></tr>
-            <tr><th>Amperaje recomendado</th><td>{{ electrode.RecommendedAmperage }}</td></tr>
-            <tr><th>Tipo de conexión</th><td>{{ electrode.ConnectionType }}</td></tr>
-            <tr><th>Posiciones</th><td>{{ electrode.Positions }}</td></tr>
-            <tr><th>Descripción</th><td>{{ electrode.Description }}</td></tr>
-        </table>
-    </div>
+        <!-- Datos de entrada como cards -->
+        <h2>Datos de entrada</h2>
+        <div class="cards-entrada">
+            <div class="card-entrada">
+                <h3>Material Base</h3>
+                <ul>
+                    <li><b>Nombre:</b> {{ material.Name }}</li>
+                    <li><b>Densidad:</b> {{ material.Density }} g/cm³</li>
+                    <li><b>Calor específico:</b> {{ material.SpecificHeat }} J/g°C</li>
+                    <li><b>Punto de fusión:</b> {{ material.MeltingPoint }} °C</li>
+                    <li><b>Calor de fusión:</b> {{ material.FusionHeat }} J/g</li>
+                    <li><b>Temp. crítica:</b> {{ material.CriticalTemperature }} °C</li>
+                </ul>
+            </div>
+            <div class="card-entrada">
+                <h3>Electrodo</h3>
+                <ul>
+                    <li><b>Nombre:</b> {{ electrode.Name }}</li>
+                    <li><b>Amperaje recomendado:</b> {{ electrode.RecommendedAmperage }}</li>
+                    <li><b>Tipo de conexión:</b> {{ electrode.ConnectionType }}</li>
+                    <li><b>Posiciones:</b> {{ electrode.Positions }}</li>
+                    <li><b>Descripción:</b> {{ electrode.Description }}</li>
+                </ul>
+            </div>
+            <div class="card-entrada">
+                <h3>Parámetros de Soldadura</h3>
+                <ul>
+                    <li><b>Amperaje (A):</b> {{ amperage }}</li>
+                    <li><b>Voltaje (V):</b> {{ voltage }}</li>
+                    <li><b>Eficiencia (η):</b> {{ efficiency }}</li>
+                    <li><b>Velocidad de soldeo:</b> {{ speed }} cm/min</li>
+                    <li><b>Espesor:</b> {{ thickness }} <span style="color:#26788a;">({{ tipo_chapa }})</span></li>
+                </ul>
+            </div>
+        </div>
 
-    <div class="section">
-        <h2>Parámetros Ingresados</h2>
-        <table>
-            <tr><th>Amperaje</th><td>{{ amperage }} A</td></tr>
-            <tr><th>Voltaje</th><td>{{ voltage }} V</td></tr>
-            <tr><th>Eficiencia</th><td>{{ efficiency }}</td></tr>
-            <tr><th>Velocidad de soldeo</th><td>{{ speed }} cm/min</td></tr>
-            <tr><th>Espesor</th><td>{{ thickness }} cm <span class="etiqueta">{{ tipo_chapa }}</span></td></tr>
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>Resultados del Cálculo</h2>
+        <!-- Resultados numéricos -->
+        <h2>Resultados del cálculo</h2>
         <table>
             <tr><th>Aporte de calor (Hnet)</th><td>{{ hnet }} J/cm</td></tr>
             <tr><th>Zona afectada por calor (ZAC)</th><td>{{ zac }} cm³</td></tr>
@@ -68,40 +234,35 @@
             <tr><th>Velocidad de enfriamiento T8/5</th><td>{{ enfriamiento_t85 }} °C/s</td></tr>
             <tr><th>Energía total de fusión</th><td>{{ energia_fusion }} J/cm³</td></tr>
         </table>
-    </div>
 
-    <!-- GRAFICOS CON RUTA ABSOLUTA LOCAL -->
-    <div class="section graficobox">
-        <h3 class="mb-2">Curvas de Temperatura de Precalentamiento</h3>
-        {% if imagen_absoluta_precal %}
-            <img src="{{ imagen_absoluta_precal }}" alt="Gráfico Precalentamiento" class="imggraph">
-        {% else %}
-            <div class="text-center subtle">No se generó imagen del gráfico.</div>
-        {% endif %}
-        <div class="subtle text-center">*Curvas teóricas representando los diferentes niveles de precalentamiento en función de la entrada de calor.</div>
-    </div>
+        <!-- Gráficas alineadas -->
+        <div class="graficos">
+            <div class="grafico-box">
+                <div class="grafico-label">Curvas de Precalentamiento</div>
+                {% if imagen_absoluta_precal %}
+                    <img src="{{ imagen_absoluta_precal }}" alt="Gráfico Precalentamiento">
+                {% else %}
+                    <span class="subtle">No se generó imagen del gráfico.</span>
+                {% endif %}
+            </div>
+            <div class="grafico-box">
+                <div class="grafico-label">Curva de Enfriamiento</div>
+                {% if imagen_absoluta_enfriamiento %}
+                    <img src="{{ imagen_absoluta_enfriamiento }}" alt="Curva Enfriamiento">
+                {% else %}
+                    <span class="subtle">No se generó imagen de la curva de enfriamiento.</span>
+                {% endif %}
+            </div>
+            <div class="grafico-box">
+                <div class="grafico-label">Diagrama de Soldabilidad</div>
+                {% if imagen_absoluta_soldabilidad %}
+                    <img src="{{ imagen_absoluta_soldabilidad }}" alt="Diagrama de Soldabilidad">
+                {% else %}
+                    <span class="subtle">No se generó imagen del diagrama de soldabilidad.</span>
+                {% endif %}
+            </div>
+        </div>
 
-    <div class="section graficobox">
-        <h3 class="mb-2">Curva de Enfriamiento</h3>
-        {% if imagen_absoluta_enfriamiento %}
-            <img src="{{ imagen_absoluta_enfriamiento }}" alt="Curva Enfriamiento" class="imggraph">
-        {% else %}
-            <div class="text-center subtle">No se generó imagen de la curva de enfriamiento.</div>
-        {% endif %}
-        <div class="subtle text-center">*Curva típica de descenso de temperatura tras el proceso de soldadura.</div>
-    </div>
-
-    <div class="section graficobox">
-        <h3 class="mb-2">Diagrama de Soldabilidad (CE vs %C)</h3>
-        {% if imagen_absoluta_soldabilidad %}
-            <img src="{{ imagen_absoluta_soldabilidad }}" alt="Diagrama de Soldabilidad" class="imggraph">
-        {% else %}
-            <div class="text-center subtle">No se generó imagen del diagrama de soldabilidad.</div>
-        {% endif %}
-        <div class="subtle text-center">*El punto indica la ubicación del material según su carbono equivalente y porcentaje de carbono.</div>
-    </div>
-
-    <div class="section">
         <h2>Temperaturas de Precalentamiento</h2>
         <table>
             <tr><th>AWS</th><td>{{ prec_aws }} °C</td></tr>
@@ -109,6 +270,11 @@
             <tr><th>IIW</th><td>{{ prec_iiw }} °C</td></tr>
             <tr><th>Yurioka</th><td>{{ prec_yurioka }} °C</td></tr>
         </table>
+
+        <div class="footer">
+            <hr>
+            <div>Proyecto SMAW &copy; 2025 - Escuela Superior Politécnica de Chimborazo</div>
+        </div>
     </div>
 </body>
 </html>

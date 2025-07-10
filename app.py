@@ -29,6 +29,11 @@ app = Flask(__name__)
 
 config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
 
+def ruta_logo_absoluta(filename):
+    """Devuelve la ruta absoluta tipo file:/// para PDF de un logo en static/images."""
+    path = os.path.join(app.root_path, 'static', 'images', filename).replace("\\", "/")
+    return 'file:///' + path
+
 @app.route('/')
 def index():
     materials = load_materials()
@@ -138,7 +143,6 @@ def generate_pdf():
 
     static_folder = os.path.join(app.root_path, 'static')
 
-    # Construye las rutas absolutas (¡con los tres /!)
     def ruta_file_url(archivo):
         ruta = os.path.join(static_folder, archivo).replace("\\", "/")
         return 'file:///' + ruta
@@ -148,14 +152,10 @@ def generate_pdf():
     img_absoluta_enfriamiento = ruta_file_url(img_enfriamiento)
     img_absoluta_soldabilidad = ruta_file_url(img_soldabilidad)
 
-    print("Ruta ZAC:", img_absoluta_zac)
-    print("¿Existe ZAC?:", os.path.isfile(img_absoluta_zac[8:]))
-    print("Ruta PRECAL:", img_absoluta_precal)
-    print("¿Existe PRECAL?:", os.path.isfile(img_absoluta_precal[8:]))
-    print("Ruta ENFRIAMIENTO:", img_absoluta_enfriamiento)
-    print("¿Existe ENFRIAMIENTO?:", os.path.isfile(img_absoluta_enfriamiento[8:]))
-    print("Ruta SOLDABILIDAD:", img_absoluta_soldabilidad)
-    print("¿Existe SOLDABILIDAD?:", os.path.isfile(img_absoluta_soldabilidad[8:]))
+    # LOGOS para PDF
+    logo_espoch = ruta_logo_absoluta('LOGO_ESPOCH.png')
+    logo_fac_mecanica = ruta_logo_absoluta('LOGO_FAC_MECANICA.png')
+    logo_carr_mecanica = ruta_logo_absoluta('LOGO_CARR_MECANICA.png')
 
     html = render_template(
         'report.html',
@@ -187,7 +187,10 @@ def generate_pdf():
         imagen_absoluta_zac=img_absoluta_zac,
         imagen_absoluta_precal=img_absoluta_precal,
         imagen_absoluta_enfriamiento=img_absoluta_enfriamiento,
-        imagen_absoluta_soldabilidad=img_absoluta_soldabilidad
+        imagen_absoluta_soldabilidad=img_absoluta_soldabilidad,
+        logo_espoch=logo_espoch,
+        logo_fac_mecanica=logo_fac_mecanica,
+        logo_carr_mecanica=logo_carr_mecanica
     )
 
     options = {
