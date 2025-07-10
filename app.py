@@ -27,7 +27,7 @@ import os
 
 app = Flask(__name__)
 
-config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
 
 def ruta_logo_absoluta(filename):
     """Devuelve la ruta absoluta tipo file:/// para PDF de un logo en static/images."""
