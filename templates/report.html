@@ -14,6 +14,8 @@
         .graficobox { background: #f7faff; border: 1px solid #b6c5d6; padding: 12px; margin-top: 8px; margin-bottom: 24px; border-radius: 7px;}
         .subtle { color: #888; font-size: 0.97em; margin-top: 3px;}
         .text-center { text-align: center; }
+        .mb-2 { margin-bottom: 0.7em; }
+        .imggraph { max-width: 340px; display:block; margin:auto;}
     </style>
 </head>
 <body>
@@ -68,14 +70,35 @@
         </table>
     </div>
 
+    <!-- GRAFICOS CON RUTA ABSOLUTA LOCAL -->
     <div class="section graficobox">
-        <h3 class="mb-2">Zona Afectada por el Calor (ZAC) - Visualización</h3>
-        {% if img_zac %}
-            <img src="{{ url_for('static', filename=img_zac) }}" alt="Gráfico ZAC" style="max-width:320px;display:block;margin:auto;">
+        <h3 class="mb-2">Curvas de Temperatura de Precalentamiento</h3>
+        {% if imagen_absoluta_precal %}
+            <img src="{{ imagen_absoluta_precal }}" alt="Gráfico Precalentamiento" class="imggraph">
         {% else %}
             <div class="text-center subtle">No se generó imagen del gráfico.</div>
         {% endif %}
-        <div class="subtle text-center">*La zona sombreada representa la ZAC aproximada según los parámetros ingresados.</div>
+        <div class="subtle text-center">*Curvas teóricas representando los diferentes niveles de precalentamiento en función de la entrada de calor.</div>
+    </div>
+
+    <div class="section graficobox">
+        <h3 class="mb-2">Curva de Enfriamiento</h3>
+        {% if imagen_absoluta_enfriamiento %}
+            <img src="{{ imagen_absoluta_enfriamiento }}" alt="Curva Enfriamiento" class="imggraph">
+        {% else %}
+            <div class="text-center subtle">No se generó imagen de la curva de enfriamiento.</div>
+        {% endif %}
+        <div class="subtle text-center">*Curva típica de descenso de temperatura tras el proceso de soldadura.</div>
+    </div>
+
+    <div class="section graficobox">
+        <h3 class="mb-2">Diagrama de Soldabilidad (CE vs %C)</h3>
+        {% if imagen_absoluta_soldabilidad %}
+            <img src="{{ imagen_absoluta_soldabilidad }}" alt="Diagrama de Soldabilidad" class="imggraph">
+        {% else %}
+            <div class="text-center subtle">No se generó imagen del diagrama de soldabilidad.</div>
+        {% endif %}
+        <div class="subtle text-center">*El punto indica la ubicación del material según su carbono equivalente y porcentaje de carbono.</div>
     </div>
 
     <div class="section">

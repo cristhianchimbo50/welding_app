@@ -47,18 +47,41 @@
     <li><strong>Energía total de fusión:</strong> {{ energia_fusion }} J/cm³</li>
 </ul>
 
+
 <div class="card my-4 p-3">
-    <h5 class="text-center">Identificación gráfica de la Zona Afectada por el Calor (ZAC)</h5>
+    <h5 class="text-center">Curvas de Temperatura de Precalentamiento</h5>
     <div class="d-flex justify-content-center">
-        {% if img_zac %}
-            <img src="{{ url_for('static', filename=img_zac) }}" alt="Gráfico ZAC" style="max-width: 400px;">
+        {% if img_precal %}
+        <img src="{{ url_for('static', filename=img_precal) }}" alt="Gráfico Precalentamiento"
+            style="max-width: 400px;">
         {% else %}
-            <span class="text-danger">No se pudo generar el gráfico ZAC.</span>
+        <span class="text-danger">No se pudo generar el gráfico de precalentamiento.</span>
         {% endif %}
     </div>
-    <p class="text-center text-muted mb-0" style="font-size: 0.95em;">
-        La zona sombreada representa el área estimada de la ZAC en el material según los parámetros ingresados.
-    </p>
+</div>
+
+<div class="card my-4 p-3">
+    <h5 class="text-center">Curva de Enfriamiento</h5>
+    <div class="d-flex justify-content-center">
+        {% if img_enfriamiento %}
+        <img src="{{ url_for('static', filename=img_enfriamiento) }}" alt="Curva Enfriamiento"
+            style="max-width: 400px;">
+        {% else %}
+        <span class="text-danger">No se pudo generar la curva de enfriamiento.</span>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card my-4 p-3">
+    <h5 class="text-center">Diagrama de Soldabilidad (CE vs %C)</h5>
+    <div class="d-flex justify-content-center">
+        {% if img_soldabilidad %}
+        <img src="{{ url_for('static', filename=img_soldabilidad) }}" alt="Diagrama de Soldabilidad"
+            style="max-width: 400px;">
+        {% else %}
+        <span class="text-danger">No se pudo generar el diagrama de soldabilidad.</span>
+        {% endif %}
+    </div>
 </div>
 
 <h4>Temperaturas de precalentamiento estimadas:</h4>
@@ -79,7 +102,11 @@
         <input type="hidden" name="speed" value="{{ speed }}">
         <input type="hidden" name="thickness" value="{{ thickness }}">
         <input type="hidden" name="img_zac" value="{{ img_zac }}">
+        <input type="hidden" name="img_precal" value="{{ img_precal }}">
+        <input type="hidden" name="img_enfriamiento" value="{{ img_enfriamiento }}">
+        <input type="hidden" name="img_soldabilidad" value="{{ img_soldabilidad }}">
         <button type="submit" class="btn btn-success mt-3">Generar PDF</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver</a>
     </form>
 
     <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver</a>
